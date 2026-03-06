@@ -14,6 +14,8 @@ struct ContentView: View {
     //Core differnce between iPhone and iPad
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
     
+    @State private var isShowingAddGroup: Bool = false
+    
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility){
            //Column 1: left of navigation
@@ -27,12 +29,27 @@ struct ContentView: View {
             }
             .navigationTitle("ToDo Tracker App")
             .listStyle(.sidebar)
+            .toolbar {
+                Button {
+                    isShowingAddGroup = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
             
         } detail: {
             if let group = selectedGroup {
                 if let index = taskGroups.firstIndex(where: { $0.id == group.id}){
                     TaskGroupDetailView(group: $taskGroups[index])
+                }else{
+                    ContentUnavailableView("Select a group", systemImage: "sidebar.left")
                 }
+            }
+        }
+        .sheet(isPresented: $isShowingAddGroup){
+            NewGroupView { newGroup in
+                taskGroups.append(newGroup)
+                selectedGroup = newGroup
             }
         }
     }
