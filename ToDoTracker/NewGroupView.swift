@@ -38,6 +38,7 @@ struct NewGroupView: View {
                                 .onTapGesture{
                                     selectedIcon = icon
                                 }
+                                .accessibilityIdentifier("Icon_\(icon)")
                         }
                     }
                     .padding(.vertical)
@@ -47,6 +48,7 @@ struct NewGroupView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction){
                     Button("Cancel"){dismiss()}
+                        .accessibilityIdentifier("CancelGroupButton")
                 }
                 
                 ToolbarItem(placement: .confirmationAction){
@@ -55,6 +57,7 @@ struct NewGroupView: View {
                         onSave(newGroup)
                         dismiss()
                     }
+                    .accessibilityIdentifier("SaveGroupButton")
                 }
             }
         }

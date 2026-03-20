@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct ToDoTrackerApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView()
         }
     }
 }

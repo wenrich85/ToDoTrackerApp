@@ -9,17 +9,24 @@
 
 import Foundation
 
-struct TaskItem: Identifiable, Hashable{
-    let id = UUID()
+struct TaskItem: Identifiable, Hashable, Codable{
+    var id = UUID()
     var title: String
     var isCompleted: Bool = false
 }
 
-struct TaskGroup: Identifiable, Hashable{
-    let id: UUID = UUID()
+struct TaskGroup: Identifiable, Hashable, Codable{
+    var id: UUID = UUID()
     var title: String
     var symbolName: String
     var tasks: [TaskItem]
+}
+
+struct Profile: Identifiable, Hashable, Codable {
+    var id = UUID()
+    var name: String
+    var profileImage: String
+    var groups: [TaskGroup]
 }
 
 //Mock-data to test our app
@@ -39,4 +46,11 @@ extension TaskGroup{
             ])
         ]
     
+}
+
+extension Profile {
+    static let sample: [Profile] = [
+        Profile(name: "Professor", profileImage: "Professor_img", groups: TaskGroup.sampleData),
+        Profile(name: "Student", profileImage: "Student_img", groups: [])
+    ]
 }
